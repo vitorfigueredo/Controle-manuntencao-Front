@@ -1,0 +1,1 @@
+angular.module("start-angular", ["ngMessages", "ngRoute"]);

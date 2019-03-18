@@ -1,0 +1,106 @@
+<!-- Template contendo a visualização de Marcas -->
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="table-responsive">
+            <!-- Tabela de Marcas, gerado loop por Api -->
+            <table class="table table-hover" ng-show="marcas.length">
+                <thead>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="marcas in marcas | orderBy : 'nome'">
+                        <td>{{marcas.nome}}</td>
+                        <td>{{marcas.descricao}}</td>
+                        <td class="icones">
+                                <a href="" ng-click="removerMarca(marcas)" class="deletar"><span class="iconify" data-icon="fa-solid:trash" data-inline="false"></span></a>
+                                <a href="" ng-click="botaoEditarMarca(marcas)" data-toggle="modal" data-target="#marca-editar-Modal"><span class="iconify" data-icon="fa-solid:pencil-alt" data-inline="false"></span></simple-svg></a>
+                            </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- This message is show when marcas list is null or empty -->
+            <h2 style="text-align: center" ng-show="!marcas.length">Não existem itens a serem demonstrados</h2>
+            <!-- This message is show when back-End don't works or don't connects -->
+            <h3 class="erro-backend">{{mensagemDeErro}}</h3>
+        </div>
+    </div>
+</div>
+    
+    <div id="abrir-Popper" align="center" class="adicionarMarca botao-adicionar" data-toggle="modal" data-target="#marca-cadastro-Modal" data-content="Cadastrar nova Marca para Produtos">
+        <span class="iconify" data-icon="mdi:amazon" data-inline="false"></span>
+    </div>
+
+    <script>
+        $('#abrir-Popper').popover({
+        trigger: 'hover'
+        })
+    </script>
+    
+    <!-- Modal Cadastro de Marcas -->
+    <div class="modal fade" id="marca-cadastro-Modal" tabindex="-1" role="dialog" aria-labelledby="marca-cadastro-ModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="marca-cadastro-ModalLabel">Cadastrar nova marca</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulário para cadastrar as novas Marcas -->
+              <form id="marcaForm" name="marcaForm">
+                <div class="form-group">
+                    <input ng-model="marca.nome" type="text" class="form-control mb-2" name="nome" id="Nome" placeholder="Nome" ng-minlength="2" ng-required='testeRequiredNome()'>
+    
+                    <input ng-model="marca.descricao" type="text" class="form-control mb-2" name="telefone" id="Telefone" placeholder="Descrição">
+    
+                </div>
+              </form>
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" ng-click="adicionarMarca(marca)" ng-disabled="(marcaForm.$invalid || marcaForm.$untouched)">
+                        <span class="iconify" data-icon="fa:floppy-o" data-inline="false"></span> Salvar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Editar de Marcas -->
+    <div class="modal fade" id="marca-editar-Modal" tabindex="-1" role="dialog" aria-labelledby="marca-editar-ModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="marca-editar-ModalLabel">Atualizar marca {{editarMarca.nome}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulário para editar Marcas -->
+            <form id="marcaEditForm" name="marcaEditForm">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input ng-model="editarMarca.nome" type="text" class="form-control mb-2" name="nome" id="nome" placeholder="Nome">
+                    
+                    <label for="editarDescricao">Letra do Corredor</label>
+                    <input ng-model="editarMarca.descricao" type="text" class="form-control mb-2" name="editarDescricao" id="editarDescricao" placeholder="Insira Descrição">
+
+    
+                </div>
+            </form>
+            {{editarMarca}}
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" ng-click="updateMarca(editarMarca)" ng-disabled="(marcaEditForm.$invalid || marcaEditForm.$untouched)">
+                            <span class="iconify" data-icon="fa-solid:sync-alt" data-inline="false"></span> Atualizar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>

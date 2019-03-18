@@ -1,0 +1,37 @@
+<!-- Template de relatório de movimentações de saídas e entradas. -->
+<div class="row" id="corpo">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table" ng-show="movimentacaos.length">
+                <thead>
+                    <th>Código</th>
+                    <th>Produto</th>
+                    <th>Entrada (Un.)</th>
+                    <th>Saída (Un.)</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="movimento in movimentacaos">
+                        <td>{{movimento.idMovimentacao}}</td>
+                        <td>{{movimento.produto.nome}}</td>
+                        <td>{{movimento.entrada}}</td>
+                        <td>{{movimento.saida}}</td>                                                
+                    </tr>
+                </tbody>
+            </table>
+            <!-- This message is show when estoques list is null or empty -->
+            <h2 style="text-align: center" ng-show="!movimentacaos.length">Não existem itens a serem demonstrados</h2>
+            <!-- This message is show when back-End don't works or don't connects -->
+            <h3 class="erro-backend">{{mensagemDeErro}}</h3>
+        </div>
+    </div>
+</div>
+
+<div align="center" id="abrir-Popper" class="adicionarEstoque botao-adicionar" data-toggle="modal" data-target="#Modal" title="Relatório" data-content="Gerar relatório de Produtos mais movimentados">
+    <span class="iconify" data-icon="mdi:chart-bar" data-inline="false"></span>
+</div>
+
+<script>
+    $('#abrir-Popper').popover({
+    trigger: 'hover'
+    })
+</script>

@@ -1,0 +1,123 @@
+<!-- Template contendo o sistema de estoque, para movimentações internas, saídas e entradas. -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table" ng-show="produtos.length">
+                <thead>
+                    <th>Nome do Produto</th>
+                    <th>Marca</th>
+                    <th>Quantidade em Estoque</th>
+                    <th>Layout</th>
+                    <th>Ações</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="estoques in produtos">
+                        <td>{{estoques.nome}}</td>
+                        <td>{{estoques.marca.nome}}</td>
+                        <td>{{estoques.quantidadeEstoque}}</td>
+                        <td>{{estoques.layout.nome}}</td>
+                        <td class="icones">
+                            <a title="Mudar local de: {{estoques.nome}}" href="" ng-click="botaoEditarLayout(estoques)" data-toggle="modal" data-target="#estoque-editar-Modal" class="bussola"><span class="iconify" data-icon="mdi:apple-safari" data-inline="false"></span></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- This message is show when estoques list is null or empty -->
+            <h2 style="text-align: center" ng-show="!produtos.length">Não existem itens a serem demonstrados</h2>
+            <!-- This message is show when back-End don't works or don't connects -->
+            <h3 class="erro-backend">{{mensagemDeErro}}</h3>
+        </div>
+    </div>
+</div>
+
+<div align="center" id="abrir-Popper" title="Movimentar Estoque" class="adicionarEstoque botao-adicionar" data-toggle="modal" data-target="#estoque-cadastro-Modal" data-content="Entrada e saída de produtos do estoque">
+        <span class="iconify" data-icon="mdi:arrow-left-right-bold-outline" data-inline="false"></span>
+</div>
+
+<script>
+    $('#abrir-Popper').popover({
+    trigger: 'hover'
+    })
+</script>
+
+<!-- Modal Cadastro de Estoques -->
+<div class="modal fade" id="estoque-cadastro-Modal" tabindex="-1" role="dialog" aria-labelledby="estoque-cadastro-ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="estoque-cadastro-ModalLabel">Cadastrar novo estoque</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="movimentacaoForm" name="movimentacaoForm">
+            <div class="form-group">
+                <input ng-model="estoque.saida" type="text" class="form-control mb-2" name="saida" id="Saida" placeholder="Saida" onkeyup="justNumbers(this)">
+
+                <input ng-model="estoque.entrada" type="text" class="form-control mb-2" name="entrada" id="Entrada" placeholder="Entrada" onkeyup="justNumbers(this)">
+
+                <!-- <input class="form-control mb-2" type="datetime" name="data" id="Data" ng-model="estoque.datadamovimentacao" placeholder="Data da Movimentação"> -->
+                
+                <select class="form-control mb-2" name="produto" id="Produto" ng-model="estoque.produto" ng-options="produto.nome for produto in produtosAll" ng-required='RequiredProduto()'>
+                    <option value="" selected disabled>Selecione um Produto</option>
+                </select>
+
+                <select ng-show="!estoque.produto.layout" class="form-control mb-2" name="layout" id="ProdutoLayout" ng-model="estoque.produto.layout" ng-options="layout.nome for layout in layouts">
+                    <option value="" selected disabled>Selecione um Layout</option>
+                </select>
+
+                <select class="form-control mb-2" name="cliente" id="Produto" ng-model="estoque.cliente" ng-options="cliente.nome for cliente in clientes">
+                    <option value="" selected disabled>Selecione um Cliente</option>
+                </select>
+
+
+
+                    {{estoque}}
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary" ng-click="adicionarMovimentacao(estoque)" ng-disabled="(movimentacaoForm.$invalid || movimentacaoForm.$untouched)">
+                <span class="iconify" data-icon="fa:floppy-o" data-inline="false"></span> Salvar
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Editar de Estoques -->
+  <div class="modal fade" id="estoque-editar-Modal" tabindex="-1" role="dialog" aria-labelledby="estoque-editar-ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="estoque-editar-ModalLabel">Mudar Localização de {{editarEstoque.nome}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <!-- Formulário para editar Estoques -->
+        <form id="estoqueEditForm" name="estoqueEditForm">
+            <div class="form-group">
+
+                <label for="editarProdutoLayout">Localização</label>
+                <select class="form-control mb-2" name="layout" id="editarProdutoLayout" ng-model="editarEstoque.layout" ng-options="layout.nome for layout in layouts">
+                    <option value="" ng-selected="editarEstoque.layout.idLayout">{{editarEstoque.layout.nome}}</option>
+                </select>
+
+
+            </div>
+        </form>
+        {{editarEstoque}}
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" ng-click="updateEstoque(editarEstoque)" ng-disabled="(estoqueEditForm.$invalid || estoqueEditForm.$untouched)">
+                        <span class="iconify" data-icon="fa-solid:sync-alt" data-inline="false"></span> Atualizar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

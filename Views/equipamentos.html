@@ -1,0 +1,118 @@
+<!-- Template contendo a visualização de Equipamentos -->
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="table-responsive">
+            <!-- Tabela de Equipamentos, gerado loop por Api -->
+            <table class="table table-hover" ng-show="equipamentos.length">
+                <thead>
+                    <th>Nome</th>
+                    <th>Marca</th>
+                    <th>Ações</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="equipamentos in equipamentos | orderBy : 'nome'">
+                        <td>{{equipamentos.nome}}</td>
+                        <td>{{equipamentos.marca.nome}}</td>
+                        <td class="icones">
+                                <a title="Deletar {{equipamentos.nome}}" href="" ng-click="removerEquipamento(equipamentos)" class="deletar"><span class="iconify" data-icon="fa-solid:trash" data-inline="false"></span></a>
+                                <a title="Editar {{equipamentos.nome}}" href="" ng-click="botaoEditarEquipamento(equipamentos)" data-toggle="modal" data-target="#equipamento-editar-Modal"><span class="iconify" data-icon="fa-solid:pencil-alt" data-inline="false"></span></simple-svg></a>
+                            </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- This message is show when equipamentos list is null or empty -->
+            <h2 style="text-align: center" ng-show="!equipamentos.length">Não existem itens a serem demonstrados</h2>
+            <!-- This message is show when back-End don't works or don't connects -->
+            <h3 class="erro-backend">{{mensagemDeErro}}</h3>
+        </div>
+    </div>
+</div>
+
+<div id="abrir-Popper" align="center" title="Cadastro de Equipamento" class="adicionarEquipamento botao-adicionar" data-toggle="modal" data-target="#equipamento-cadastro-Modal" data-content="Cadastrar Equipamento no sistema, sem movimentar estoque">
+    <span class="iconify" data-icon="fa:dropbox" data-inline="false"></span>
+</div>
+
+<!-- Script para inicializar o Popper -->
+<script>
+    $('#abrir-Popper').popover({
+    trigger: 'hover'
+    })
+</script>
+
+<!-- Modal Cadastro de Equipamentos -->
+<div class="modal fade" id="equipamento-cadastro-Modal" tabindex="-1" role="dialog" aria-labelledby="equipamento-cadastro-ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="equipamento-cadastro-ModalLabel">Cadastrar novo equipamento</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="equipamentoForm" name="equipamentoForm">
+            <div class="form-group">
+                <input ng-model="equipamento.nome" type="text" class="form-control mb-2" name="nome" id="Nome" placeholder="Nome" ng-minlength="2" ng-required='testeRequiredNome()'>
+
+                <select class="form-control mb-2" name="marca" id="Marca" ng-model="equipamento.marca" ng-options="marca.nome for marca in marcas" ng-required='testeRequired()'>
+                    <option value="" selected disabled>Selecione uma Marca</option>
+                </select>
+
+
+
+                    {{equipamento}}
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary" ng-click="adicionarEquipamento(equipamento)" ng-disabled="(equipamentoForm.$invalid || equipamentoForm.$untouched)">
+                <span class="iconify" data-icon="fa:floppy-o" data-inline="false"></span> Salvar
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Editar de Equipamentos -->
+  <div class="modal fade" id="equipamento-editar-Modal" tabindex="-1" role="dialog" aria-labelledby="equipamento-editar-ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="equipamento-editar-ModalLabel">Atualizar equipamento {{editarEquipamento.nome}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <!-- Formulário para editar Equipamentos -->
+        <form id="equipamentoEditForm" name="equipamentoEditForm">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input ng-model="editarEquipamento.nome" type="text" class="form-control mb-2" name="nome" id="nome" placeholder="Nome">
+                
+                <label for="editarMarca">Marca</label>
+                <input ng-model="editarEquipamento.marca" type="text" class="form-control mb-2" name="editarMarca" id="editarMarca" placeholder="Insira Marca">
+
+                <label for="editarCodigo">Código</label>
+                <input ng-model="editarEquipamento.codigo" type="text" class="form-control mb-2" name="editarCodigo" id="editarCodigo" placeholder="Insira código único do Equipamento">
+
+                <label for="editarCategoria">Categoria</label>
+                <select class="form-control mb-2" name="categoria" id="editarCategoria" ng-model="editarEquipamento.categoria" ng-options="categoria.nome for categoria in categorias" ng-required='testeRequired()'>
+                    <option value="" selected ng-value="categoria" ng-selected="editarEquipamento.categoria.idCategoria">{{editarEquipamento.categoria.nome}}</option>
+                </select>
+
+
+            </div>
+        </form>
+        {{editarEquipamento}}
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" ng-click="updateEquipamento(editarEquipamento)" ng-disabled="(equipamentoEditForm.$invalid || equipamentoEditForm.$untouched)">
+                        <span class="iconify" data-icon="fa-solid:sync-alt" data-inline="false"></span> Atualizar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR" ng-app="start-angular">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Controle de Estoque com Data Mining</title>
+
+    <!-- Call Favicon -->
+    <link rel="shortcut icon" href="img/caixa.png" type="image/x-icon">
+
+    <!-- Call Jquery and Popper Js -->
+    <script src="inc/Jquery/jquery-3.3.1.slim.min.js"></script>
+    <script src="inc/Jquery-Mask/jquery.mask.min.js"></script>
+    <script src="inc/Popper/popper.min.js"></script>
+
+    <!-- Call BootStrap -->
+    <link rel="stylesheet" href="inc/bootstrap/css/bootstrap.min.css">
+    <script src="inc/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Call Angular -->
+    <script src="inc/angular/angular.js"></script>
+    <script src="inc/angular/angular-loader.min.js"></script>
+    <script src="inc/angular/angular-locale_pt-br.js"></script>
+    <script src="inc/angular/angular-route.min.js"></script>
+    <script src="inc/angular/angular-messages.min.js"></script>
+
+    <!-- Call my Styles and Script for iniciate Angular -->
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <script src="js/start-angular.js"></script>
+
+    <!-- Call Controllers -->
+    <script src="js/Controllers/indexController.js"></script>
+    <script src="js/Controllers/homeController.js"></script>
+    <script src="js/Controllers/equipamentosController.js"></script>
+    <script src="js/Controllers/estoqueController.js"></script>
+    <script src="js/Controllers/clientesController.js"></script>
+    <script src="js/Controllers/marcasController.js"></script>
+
+    <!-- Call Resources -->
+    <script src="config/configAPIService.js"></script>
+    <script src="config/configOutServices.js"></script>
+    <script src="config/Resources/equipamentosApiResources.js"></script>
+    <script src="config/Resources/clientesApiResources.js"></script>
+    <script src="config/Resources/marcasApiResources.js"></script>
+    <script src="config/Resources/cepApiResources.js"></script>
+    <script src="config/Resources/enderecosApiResources.js"></script>
+
+    <!-- Call Routes -->
+    <script src="config/routerProviderConfig.js"></script>
+
+    <!-- Call SimpleSVG or Iconify -->
+    <script src="//code.iconify.design/1/1.0.0-rc1/iconify.min.js"></script>
+
+
+</head>
+<body class="container-fluid">
+    <div class="row">
+        <div id="my-sidebar-action" class="col-md-3 my-sidebar">
+            <div class="menu-itens">
+                <nav class="">
+                    <div id="brand" align="center">
+                        <a href="#!">
+                            <img width="130" height="auto" src="img/prateliera_03.png" alt="Logo Estoque Mining">
+                        </a>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="">
+                            <a class="" href="#!/equipamentos">Equipamentos</a>
+                        </li>
+                        <li class="">
+                            <a class="" href="#!/estoque">Estoque</a>
+                        </li>
+                        <li class="">
+                            <a class="" href="#!/clientes">Clientes</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div id="my-sidebar-action-menu" class="abre-menu" onclick="mostraSidebar()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div id="menu-espaco-traseiro" class="col-md-3 d-none"></div>
+        <div id="conteudo-pagina-mudar-espaco" class="col-md-12 col-xs-12 posicao">
+            <div class="row">
+                <div class="col-md-12" ng-controller="main-controller">
+                    <header>
+                        {{TituloPagina}}
+                    </header>
+                            
+                            <main class="margin-inferior">
+                                    <ng-view></ng-view>
+                            </main>
+                    
+                    <footer class="my-footer-home">
+                       Copyright 2019 - Desenvolvimento: <a href="mailto:vitor.s.figueredo@gmail.com" class="meu-nome">Vitor dos Santos Figueredo</a>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

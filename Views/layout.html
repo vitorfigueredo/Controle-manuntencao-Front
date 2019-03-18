@@ -1,0 +1,123 @@
+<!-- Template contendo a visualização de Layouts -->
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="table-responsive">
+            <!-- Tabela de Layouts, gerado loop por Api -->
+            <table class="table table-hover" ng-show="layouts.length">
+                <thead>
+                    <th>Nome</th>
+                    <th>Letra</th>
+                    <th>Número</th>
+                    <th>Ações</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="layouts in layouts | orderBy : 'nome' : 'reverse'">
+                        <td>{{layouts.nome}}</td>
+                        <td>{{layouts.letraDoCorredor}}</td>
+                        <td>{{layouts.numeroDaEstante}}</td>
+                        <td class="icones">
+                            <a href="" ng-click="removerLayout(layouts)" class="deletar"><span class="iconify" data-icon="fa-solid:trash" data-inline="false"></span></a>
+                            <a href="" ng-click="botaoEditarLayout(layouts)" data-toggle="modal" data-target="#layout-editar-Modal"><span class="iconify" data-icon="fa-solid:pencil-alt" data-inline="false"></span></simple-svg></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- This message is show when layouts list is null or empty -->
+            <h2 style="text-align: center" ng-show="!layouts.length">Não existem itens a serem demonstrados</h2>
+            <!-- This message is show when back-End don't works or don't connects -->
+            <h3>{{mensagemDeErro}}</h3>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row mt-2">
+    Modo layout Fisico 
+    <div class="col-md-2" ng-repeat="layouts in layouts | orderBy : 'idLayout' : 'reverse'">
+            <div class="forma-layout">{{layouts.nome}} <span class="icones"><a href="" ng-click="removerLayout(layouts)"><span class="iconify" data-icon="fa-solid:trash" data-inline="false"></span></a>
+                <a href="" ng-click="botaoEditarLayout(layouts)" data-toggle="modal" data-target="#layout-editar-Modal"><span class="iconify" data-icon="fa-solid:pencil-alt" data-inline="false"></span></simple-svg></a></span></div>
+        </div>
+</div> -->
+    
+
+        <!-- Button to open modal window for save new Layout -->
+        <div align="center" id="abrir-Popper" class="adicionarLayout botao-adicionar" data-toggle="modal" data-target="#layout-cadastro-Modal" data-content="Cadastro de Layout">
+                <span class="iconify" data-icon="fa:plus" data-inline="false"></span>
+        </div>
+
+        <script>
+            $('#abrir-Popper').popover({
+            trigger: 'hover'
+            })
+        </script>
+        
+        <!-- Modal Cadastro de Layouts -->
+        <div class="modal fade" id="layout-cadastro-Modal" tabindex="-1" role="dialog" aria-labelledby="layout-cadastro-ModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="layout-cadastro-ModalLabel">Cadastrar novo layout</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulário para cadastrar as novas Layouts -->
+                  <form id="layoutForm" name="layoutForm">
+                    <div class="form-group">
+                        <input ng-model="layout.nome" type="text" class="form-control mb-2" name="nome" id="Nome" placeholder="Nome">
+        
+                        <input ng-model="layout.letraDoCorredor" type="text" class="form-control mb-2" name="letraDoCorredor" id="letraDoCorredor" placeholder="Insira a Letra do Corredor">
+
+                        <input ng-model="layout.numeroDaEstante" type="text" class="form-control mb-2" name="numeroDaEstante" id="numeroDaEstante" placeholder="Insira o número da Estante">
+        
+                    </div>
+                  </form>
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary" ng-click="adicionarLayout(layout)" ng-disabled="(layoutForm.$invalid || layoutForm.$untouched)">
+                            <span class="iconify" data-icon="fa:floppy-o" data-inline="false"></span> Salvar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    
+        <!-- Modal Editar de Layouts -->
+        <div class="modal fade" id="layout-editar-Modal" tabindex="-1" role="dialog" aria-labelledby="layout-editar-ModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="layout-editar-ModalLabel">Atualizar layout {{editarLayout.nome}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulário para editar Layouts -->
+                <form id="layoutEditForm" name="layoutEditForm">
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input ng-model="editarLayout.nome" type="text" class="form-control mb-2" name="nome" id="nome" placeholder="Nome">
+                        
+                        <label for="letraDoCorredorEditar">Letra do Corredor</label>
+                        <input ng-model="editarLayout.letraDoCorredor" type="text" class="form-control mb-2" name="letraDoCorredorEditar" id="letraDoCorredorEditar" placeholder="Insira a Letra do Corredor">
+
+                        <label for="numeroDaEstanteEditar">Número da Estante</label>
+                        <input ng-model="editarLayout.numeroDaEstante" type="text" class="form-control mb-2" name="numeroDaEstanteEditar" id="numeroDaEstanteEditar" placeholder="Insira o número da Estante">
+        
+                    </div>
+                </form>
+                {{editarLayout}}
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary" ng-click="updateLayout(editarLayout)" ng-disabled="(layoutForm.$invalid || layoutForm.$untouched)">
+                                <span class="iconify" data-icon="fa-solid:sync-alt" data-inline="false"></span> Atualizar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>

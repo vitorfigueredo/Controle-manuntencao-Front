@@ -1,4 +1,4 @@
-// Para utilizar o WildFly deixe a variável nomeProjeto com o valor "teste.estoque/", para utilizar o Swarm, deixe a variável nomeProjeto com o valor ""
+// Para utilizar o WildFly deixe a variável nomeProjeto com o valor "controle.manuntencao/", para utilizar o Swarm, deixe a variável nomeProjeto com o valor ""
 
 var dominio_porta = "http://localhost:8080/";
 var nomeProjeto = "controle.manuntencao/";

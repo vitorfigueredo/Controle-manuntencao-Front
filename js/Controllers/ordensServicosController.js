@@ -58,7 +58,7 @@ angular.module("start-angular").controller("ordensServicosController", function(
     $scope.adicionarNovaOrdem = function(novaOrdemFront) {
         var novaOrdemDeServico = angular.copy(novaOrdemFront);
         novaOrdemDeServico.aberturaOrdem = new Date;
-        novaOrdemDeServico.estadoServ = [];
+        novaOrdemDeServico.estadoServ = new Object;
         novaOrdemDeServico.estadoServ.idEstadoServ = 1;
         console.log(novaOrdemDeServico);
         ordensServAPI.saveOrdens(novaOrdemDeServico)
@@ -66,6 +66,7 @@ angular.module("start-angular").controller("ordensServicosController", function(
             delete $scope.novaOrdemServico;
             $scope.ordemServicoForm.$setPristine();
             trazerEquipamentosDoBanco();
+            carregarOrdens();
         })
         .catch(function(response) {
             var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
@@ -88,7 +89,7 @@ angular.module("start-angular").controller("ordensServicosController", function(
         })
         .catch(function(response) {
             var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = mensagem;
+            console.log(mensagem);
         });
     };
 

@@ -76,6 +76,7 @@ main{margin-top: 20px; margin-bottom: 20px;}
 .adicionarMarca{background: black; color: orangered;}
 
 .botao-adicionar{position: fixed; bottom: 60px; right: 40px; width: 40px; height: 40px; border-radius: 50%; font-size: 1.8em;}
+.botao-marca{float: right}
 /* Ajuste de botões */
 .bussola{color: red; font-size: 1.5em;}
 .deletar{color: red;}

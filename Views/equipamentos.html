@@ -56,7 +56,7 @@
 
                 <select class="form-control mb-2" name="marca" id="Marca" ng-model="equipamento.marca" ng-options="marca.nome for marca in marcas" ng-required='testeRequired()'>
                     <option value="" selected disabled>Selecione uma Marca</option>
-                </select>
+                </select> <button type="button" id="abrir-Popper" title="Cadastrar Novas Marcas" class="btn botao-marca" data-toggle="modal" data-target="#Cadastrar-Marcas-Modal" data-content="Cadastrar novas Marcas"><span class="iconify" data-icon="fa-solid:plus-circle" data-inline="false"></span> Adiconar Marca</button>
 
 
 
@@ -111,6 +111,41 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 <button type="button" class="btn btn-primary" ng-click="updateEquipamento(editarEquipamento)" ng-disabled="(equipamentoEditForm.$invalid || equipamentoEditForm.$untouched)">
                         <span class="iconify" data-icon="fa-solid:sync-alt" data-inline="false"></span> Atualizar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Cadastrar Marcas -->
+<div class="modal fade" id="Cadastrar-Marcas-Modal" tabindex="-1" role="dialog" aria-labelledby="Cadastrar-Marcas-ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="Cadastrar-Marcas-ModalLabel">Cadastrar Nova Marca</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <!-- Formulário para editar Equipamentos -->
+        <form id="cadastrarMarcaForm" name="cadastrarMarcaForm">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input ng-model="cadastroMarca.nome" type="text" class="form-control mb-2" name="nome" id="NomeMarca" placeholder="Nome da Marca">
+                
+                <label for="cadastrarMarca">Descrição</label>
+                <input ng-model="cadastroMarca.descricao" type="text" class="form-control mb-2" name="descricao" id="DescicaoMarca" placeholder="Descreva a Marca">
+
+
+            </div>
+        </form>
+        {{cadastroMarca}}
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" ng-click="adicionarMarca(cadastroMarca)">
+                        <span class="iconify" data-icon="fa-solid:sync-alt" data-inline="false"></span> Salvar
                 </button>
             </div>
         </div>

@@ -19,9 +19,9 @@ function AppConfig($routeProvider) {
         templateUrl: 'Views/marcas.html',
         controller: 'marcasController'
     })
-    .when('/estoque', {
-        templateUrl: 'Views/estoque.html',
-        controller: 'estoqueController'
+    .when('/ordens', {
+        templateUrl: 'Views/ordens.html',
+        controller: 'ordensController'
     })
     .when('/estoque/layout', {
         templateUrl: 'Views/layout.html',

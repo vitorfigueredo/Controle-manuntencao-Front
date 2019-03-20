@@ -1,14 +1,13 @@
-angular.module("start-angular").controller("estoqueController", function($scope, movimentacaosAPI, layoutsAPI, produtosAPI, clientesAPI) {
-    $scope.movimentacaos = [];
-    $scope.produtos = [];
+angular.module("start-angular").controller("estoqueController", function($scope, equipamentosAPI, clientesAPI) {
+    $scope.ordensServicos = [];
+    $scope.equipamentos = [];
     $scope.clientes = [];
-    $scope.estoqueDeProdutos = $scope.produtos;
     $scope.layouts = [];
-    $scope.produtosAll = [];
+    $scope.equipamentosAll = [];
     
 
-    //Função para carregar os Movimentacoes do Banco de Dados
-    var carregarMovimentacoes = function() {
+    //Função para carregar os Ordens do Banco de Dados
+    var carregarOrdens = function() {
         movimentacaosAPI.getMovimentacoes()
         .then(function(response) {
             $scope.movimentacaos = response.data;
@@ -23,14 +22,14 @@ angular.module("start-angular").controller("estoqueController", function($scope,
     };
 
     var trazerProdutosDoBanco = function() {
-        produtosAPI.getProdutos()
+        equipamentosAPI.getProdutos()
         .then(function(response) {
-            var produtosGeral = response.data;
-            produtosGeral.forEach(element => {
+            var equipamentosGeral = response.data;
+            equipamentosGeral.forEach(element => {
                 if(element.quantidadeEstoque != null){
-                    $scope.produtos.push(element);
+                    $scope.equipamentos.push(element);
                 };
-            $scope.produtosAll = response.data;
+            $scope.equipamentosAll = response.data;
             });
             
         })
@@ -54,7 +53,7 @@ angular.module("start-angular").controller("estoqueController", function($scope,
     };
 
     var montarEstoque = function(){
-        $scope.estoqueDeProdutos = $scope.produtos;
+        $scope.estoqueDeProdutos = $scope.equipamentos;
         console.log($scope.estoqueDeProdutos);
     };
 
@@ -127,7 +126,7 @@ angular.module("start-angular").controller("estoqueController", function($scope,
     //Function to update a single movimentacao at a time
     $scope.updateEstoque = function(layout) {
         var editLayout = angular.copy(layout);
-        produtosAPI.updateProdutos(editLayout)
+        equipamentosAPI.updateProdutos(editLayout)
         .then(function(response) {
             delete $scope.editarEstoque;
             $scope.estoqueEditForm.$setPristine();

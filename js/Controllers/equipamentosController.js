@@ -27,6 +27,21 @@ angular.module("start-angular").controller("equipamentosController", function($s
             console.log(mensagem);
         });
     };
+    //Método para salvar novo Marca no Banco de Dads
+    $scope.adicionarMarca = function(marca) {
+        var novoMarca = angular.copy(marca);
+        console.log(novoMarca);
+        marcasAPI.saveMarcas(novoMarca)
+        .then(function(response) {
+            delete $scope.cadastroMarca;
+            $scope.cadastrarMarcaForm.$setPristine();
+            trazerAsMarcasDoBanco();
+        })
+        .catch(function(response) {
+            var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
+            console.log(mensagem);
+        });
+    };
 
     //Método para salvar novo Equipamento no Banco de Dads
     $scope.adicionarEquipamento = function(equipamento) {

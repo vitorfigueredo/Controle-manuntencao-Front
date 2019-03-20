@@ -12,12 +12,12 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="estoques in produtos">
-                        <td>{{estoques.nome}}</td>
-                        <td>{{estoques.marca.nome}}</td>
-                        <td>{{estoques.quantidadeEstoque}}</td>
-                        <td>{{estoques.layout.nome}}</td>
+                        <td>{{ordens.nome}}</td>
+                        <td>{{ordens.marca.nome}}</td>
+                        <td>{{ordens.quantidadeEstoque}}</td>
+                        <td>{{ordens.layout.nome}}</td>
                         <td class="icones">
-                            <a title="Mudar local de: {{estoques.nome}}" href="" ng-click="botaoEditarLayout(estoques)" data-toggle="modal" data-target="#estoque-editar-Modal" class="bussola"><span class="iconify" data-icon="mdi:apple-safari" data-inline="false"></span></a>
+                            <a title="Mudar local de: {{ordens.nome}}" href="" ng-click="botaoEditarLayout(ordens)" data-toggle="modal" data-target="#estoque-editar-Modal" class="bussola"><span class="iconify" data-icon="mdi:apple-safari" data-inline="false"></span></a>
                         </td>
                     </tr>
                 </tbody>

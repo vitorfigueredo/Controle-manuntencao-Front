@@ -1,4 +1,4 @@
-angular.module("start-angular").controller("ordensController", function($scope,equipamentosAPI, clientesAPI, ordensAPI) {
+angular.module("start-angular").controller("ordensController", function($scope, equipamentosAPI, clientesAPI, ordensAPI) {
     $scope.ordens = [];
     $scope.equipamentos = [];
     $scope.clientes = [];
@@ -55,6 +55,7 @@ angular.module("start-angular").controller("ordensController", function($scope,e
         clientesAPI.getClientes()
         .then(function(response) {
             $scope.clientes = response.data;
+            console.log($scope.clientes);
         })
         .catch(function(response) {
             var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
@@ -141,10 +142,8 @@ angular.module("start-angular").controller("ordensController", function($scope,e
         };
     };
 
-    carregarMovimentacoes();
+    carregarOrdens();
     carregarEquipamentos();
     trazerClientesDoBanco();
-    carregarLayouts();
-    montarEstoque();
 
 });

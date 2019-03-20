@@ -4,6 +4,8 @@ angular.module("start-angular").controller("ordensServicosController", function(
     $scope.clientes = [];
     $scope.layouts = [];
     $scope.equipamentosAll = [];
+    dataAtual = new Date;
+    console.log("Data de Hoje é: " + dataAtual);
     
 
     //Função para carregar os Ordens do Banco de Dados

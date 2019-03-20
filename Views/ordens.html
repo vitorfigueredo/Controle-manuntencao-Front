@@ -2,22 +2,24 @@
 <div class="row">
     <div class="col-md-12">
         <div class="table-responsive">
-            <table class="table" ng-show="produtos.length">
+            <table class="table" ng-show="ordensServicos.length">
                 <thead>
-                    <th>Nome do Produto</th>
-                    <th>Marca</th>
-                    <th>Quantidade em Estoque</th>
-                    <th>Layout</th>
+                    <th>Número O.S.</th>
+                    <th>Cliente</th>
+                    <th>Equipamento</th>
+                    <th>Descrição do Serviço Solicitado</th>
+                    <th>Status do Serviço</th>
                     <th>Ações</th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="estoques in produtos">
-                        <td>{{ordensServicos.nome}}</td>
-                        <td>{{ordensServicos.marca.nome}}</td>
-                        <td>{{ordensServicos.quantidadeEstoque}}</td>
-                        <td>{{ordensServicos.layout.nome}}</td>
+                    <tr ng-repeat="ordemServico in ordensServicos">
+                        <td>{{ordemServico.idOrdem}}</td>
+                        <td>{{ordemServico.cliente.nome}}</td>
+                        <td>{{ordemServico.equipamento.nome}}</td>
+                        <td>{{ordemServico.pedidoManutencao}}</td>
+                        <td>{{ordemServico.estadoServ.nome}}</td>
                         <td class="icones">
-                            <a title="Mudar local de: {{ordensServicos.nome}}" href="" ng-click="botaoEditarLayout(ordensServicos)" data-toggle="modal" data-target="#estoque-editar-Modal" class="bussola"><span class="iconify" data-icon="mdi:apple-safari" data-inline="false"></span></a>
+                            <a title="Interação de Ordem: {{ordemServico.idOrdem}}" href="" ng-click="botaoEditarLayout(ordemServico)" data-toggle="modal" data-target="#estoque-editar-Modal" class="bussola"><span class="iconify" data-icon="mdi:apple-safari" data-inline="false"></span></a>
                         </td>
                     </tr>
                 </tbody>
@@ -30,7 +32,7 @@
     </div>
 </div>
 
-<div align="center" id="abrir-Popper" title="Movimentar Estoque" class="adicionarEstoque botao-adicionar" data-toggle="modal" data-target="#estoque-cadastro-Modal" data-content="Entrada e saída de produtos do estoque">
+<div align="center" id="abrir-Popper" title="Movimentar Estoque" class="adicionarEstoque botao-adicionar" data-toggle="modal" data-target="#ordem-cadastro-Modal" data-content="Criar nova Ordem de Serviço">
         <span class="iconify" data-icon="mdi:arrow-left-right-bold-outline" data-inline="false"></span>
 </div>
 
@@ -41,45 +43,37 @@
 </script>
 
 <!-- Modal Cadastro de Estoques -->
-<div class="modal fade" id="estoque-cadastro-Modal" tabindex="-1" role="dialog" aria-labelledby="estoque-cadastro-ModalLabel" aria-hidden="true">
+<div class="modal fade" id="ordem-cadastro-Modal" tabindex="-1" role="dialog" aria-labelledby="ordem-cadastro-ModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="estoque-cadastro-ModalLabel">Cadastrar novo estoque</h5>
+          <h5 class="modal-title" id="ordem-cadastro-ModalLabel">Cadastrar nova Ordem de Serviço</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form id="movimentacaoForm" name="movimentacaoForm">
+          <form id="ordemServicoForm" name="ordemServicoForm">
             <div class="form-group">
-                <input ng-model="estoque.saida" type="text" class="form-control mb-2" name="saida" id="Saida" placeholder="Saida" onkeyup="justNumbers(this)">
+                <!-- <input ng-model="ordemServico.pedidoManutencao" type="text" class="form-control mb-2" name="pedidoManutencao" id="PedidoManutencao" placeholder="Descreva os problemas do equipamento"> -->
 
-                <input ng-model="estoque.entrada" type="text" class="form-control mb-2" name="entrada" id="Entrada" placeholder="Entrada" onkeyup="justNumbers(this)">
-
-                <!-- <input class="form-control mb-2" type="datetime" name="data" id="Data" ng-model="estoque.datadamovimentacao" placeholder="Data da Movimentação"> -->
+                <textarea ng-model="novaOrdemServico.pedidoManutencao" name="pedidoManutencao" id="PedidoManutencao" cols="80" rows="8" class="form-control mb-2" placeholder="Descreva os problemas do equipamento"></textarea>
                 
-                <select class="form-control mb-2" name="produto" id="Produto" ng-model="estoque.produto" ng-options="produto.nome for produto in produtosAll" ng-required='RequiredProduto()'>
-                    <option value="" selected disabled>Selecione um Produto</option>
+                <select class="form-control mb-2" name="equipamento" id="Equipamento" ng-model="novaOrdemServico.equipamento" ng-options="equipamento.nome for equipamento in equipamentosAll" ng-required='RequiredProduto()'>
+                    <option value="" selected disabled>Selecione um Equipamento</option>
                 </select>
 
-                <select ng-show="!estoque.produto.layout" class="form-control mb-2" name="layout" id="ProdutoLayout" ng-model="estoque.produto.layout" ng-options="layout.nome for layout in layouts">
-                    <option value="" selected disabled>Selecione um Layout</option>
-                </select>
-
-                <select class="form-control mb-2" name="cliente" id="Produto" ng-model="estoque.cliente" ng-options="cliente.nome for cliente in clientes">
+                <select class="form-control mb-2" name="cliente" id="Produto" ng-model="novaOrdemServico.cliente" ng-options="cliente.nome for cliente in clientes">
                     <option value="" selected disabled>Selecione um Cliente</option>
                 </select>
 
-
-
-                    {{estoque}}
+                    {{novaOrdemServico}}
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-primary" ng-click="adicionarMovimentacao(estoque)" ng-disabled="(movimentacaoForm.$invalid || movimentacaoForm.$untouched)">
+          <button type="button" class="btn btn-primary" ng-click="adicionarNovaOrdem(novaOrdemServico)" ng-disabled="(ordemServicoForm.$invalid || ordemServicoForm.$untouched)">
                 <span class="iconify" data-icon="fa:floppy-o" data-inline="false"></span> Salvar
             </button>
         </div>

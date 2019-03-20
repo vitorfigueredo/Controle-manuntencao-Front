@@ -55,17 +55,21 @@ angular.module("start-angular").controller("ordensServicosController", function(
     };
 
     //Método para salvar nova ordem de serviço no Banco de Dads
-    $scope.adicionarMovimentacao = function(movimentacao) {
-        var novoMovimentacao = angular.copy(movimentacao);
-        ordensServAPI.saveOrdens(novoMovimentacao)
+    $scope.adicionarNovaOrdem = function(novaOrdemFront) {
+        var novaOrdemDeServico = angular.copy(novaOrdemFront);
+        novaOrdemDeServico.aberturaOrdem = new Date;
+        novaOrdemDeServico.estadoServ = [];
+        novaOrdemDeServico.estadoServ.idEstadoServ = 1;
+        console.log(novaOrdemDeServico);
+        ordensServAPI.saveOrdens(novaOrdemDeServico)
         .then(function(response) {
-            delete $scope.NovaOrdem;
-            $scope.NovaOrdemForm.$setPristine();
+            delete $scope.novaOrdemServico;
+            $scope.ordemServicoForm.$setPristine();
             trazerEquipamentosDoBanco();
         })
         .catch(function(response) {
             var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = mensagem;
+            console.log(mensagem);
         });
     };
     
@@ -106,7 +110,7 @@ angular.module("start-angular").controller("ordensServicosController", function(
 
     //Teste de preenchimento
     $scope.RequiredProduto = function(){
-        if($scope.movimentacaoForm.produto.$untouched || $scope.movimentacaoForm.produto.$pristine){
+        if($scope.ordemServicoForm.$untouched || $scope.ordemServicoForm.$pristine){
             return false;
         }else{
             return true;

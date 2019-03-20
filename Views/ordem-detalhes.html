@@ -1,1 +1,23 @@
-<h1>Deu certo e vai mostar: {{ordemServicoDetalhada}}</h1>
+<div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                            <h1 class="text-center">Ordem de Serviço número: {{Ordem.idOrdem}}</h1>
+                    </div>
+                </div>
+                <div class="row" id="identificação-do-cliente">
+                    <div class="col-md-2">Nome do Cliente:</div>
+                        <div class="col-md-9">{{Ordem.cliente.nome}}</div>
+                    <div class="col-md-2">Equipamento a Reparar:</div>
+                        <div class="col-md-9">{{Ordem.equipamento.nome}}</div>
+                    <div class="col-md-2">Marca do Equipamento:</div>
+                        <div class="col-md-9">{{Ordem.equipamento.marca.nome}}</div>
+                    <div class="col-md-2">Status Atual do Serviço:</div>
+                        <div class="col-md-9">{{Ordem.estadoServ.nome}}</div>
+                    <div class="col-md-2">Data da Criação do Serviço</div>
+                        <div class="col-md-9">{{DatasdaOrdem.aberturaOrdem | date:'dd/MM/yyyy HH:mm:ss'}}</div>
+                </div>
+            </div>
+        </div>
+</div>

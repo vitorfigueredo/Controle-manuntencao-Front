@@ -19,7 +19,7 @@
                         <td>{{ordemServico.pedidoManutencao}}</td>
                         <td>{{ordemServico.estadoServ.nome}}</td>
                         <td class="icones">
-                            <a title="Interação de Ordem: {{ordemServico.idOrdem}}" href="#!/ordens/detalhes" [queryParams]="{ idOrdem: {{ordemServico.idOrdem}} }"  class="bussola">
+                            <a title="Interação de Ordem: {{ordemServico.idOrdem}}" href="#!/ordens/detalhes-da-ordem/{{ordemServico.idOrdem}}" class="bussola">
                                     <!-- data-toggle="modal" data-target="#estoque-editar-Modal" -->
                                 <span class="iconify" data-icon="mdi:apple-safari" data-inline="false"></span></a>
                         </td>
@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<div align="center" id="abrir-Popper" title="Movimentar Estoque" class="adicionarEstoque botao-adicionar" data-toggle="modal" data-target="#ordem-cadastro-Modal" data-content="Criar nova Ordem de Serviço">
+<div align="center" id="abrir-Popper" title="Nova Ordem Serviço" class="adicionarEstoque botao-adicionar" data-toggle="modal" data-target="#ordem-cadastro-Modal" data-content="Criar nova Ordem de Serviço">
         <span class="iconify" data-icon="mdi:arrow-left-right-bold-outline" data-inline="false"></span>
 </div>
 

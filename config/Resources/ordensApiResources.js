@@ -16,12 +16,18 @@ angular.module("start-angular").factory("ordensServAPI", function($http, configB
     var _removeOrdens = function(ordemParaRemover) {
         var url = configBackEnd.resourceOrdensServ + "/" + ordemParaRemover.idOrdem;
         return $http.delete(url);
-    }
+    };
+
+    var _buscaOrdem = function(idDaOrdem) {
+        var urlBusca = configBackEnd.resourceOrdensServ + "/" + idDaOrdem;
+        return $http.get(urlBusca);
+    };
 
     return {
         getOrdens: _getOrdens,
         saveOrdens: _saveOrdens,
         updateOrdens: _updateOrdens,
-        removeOrdens: _removeOrdens
+        removeOrdens: _removeOrdens,
+        buscarOrdemPorId: _buscaOrdem
     };
 });

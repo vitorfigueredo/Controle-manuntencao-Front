@@ -7,7 +7,7 @@
                 <thead>
                     <th>Nome</th>
                     <th>Email</th>
-                    <th>CNPJ</th>
+                    <th>CPF</th>
                     <th>Telefone</th>
                     <th>Endereço</th>
                     <th>Ações</th>
@@ -67,8 +67,8 @@
 
                 <input ng-model="cliente.email" name="email" id="Email" class="form-control mb-2" placeholder="E-mail" type="email">
                 
-                <input ng-model="cliente.cnpj" name="cnpj" id="Cnpj" class="form-control mb-2" placeholder="CNPJ" type="text" onkeyup="justNumbersCNPJ(this)">
-                <script type="text/javascript">$('#Cnpj').mask("00.000.000/0000-00");</script>
+                <input ng-model="cliente.cnpj" name="cnpj" id="Cnpj" class="form-control mb-2" placeholder="CPF" type="text" onkeyup="justNumbersCNPJ(this)">
+                <script type="text/javascript">$('#Cnpj').mask("000.000.000-00");</script>
 
                 <input ng-model="cliente.endereco.cep" type="text" class="form-control mb-2" name="cep" id="Cep" placeholder="Cep" ng-blur='buscarCEP(cliente.endereco.cep)'>
 
@@ -82,10 +82,6 @@
 
                 <input ng-model="cliente.endereco.uf" type="text" class="form-control mb-2" name="uf" id="UF" placeholder="Estado" ng-required='testeRequiredNome()'>
 
-
-
-
-                    {{cliente}}
             </div>
           </form>
         </div>
@@ -119,9 +115,9 @@
                 <label for="editarEmail">Email</label>
                 <input ng-model="editarCliente.email" type="text" class="form-control mb-2" name="editarEmail" id="editarEmail" placeholder="Insira Email">
 
-                <label for="editarCNPJ">CNPJ</label>
-                <input ng-model="editarCliente.cnpj" type="text" class="form-control mb-2" name="editarCNPJ" id="editarCNPJ" placeholder="Insira CNPJ">
-                <script type="text/javascript">$('#editarCNPJ').mask("00.000.000/0000-00");</script>
+                <label for="editarCNPJ">CPF</label>
+                <input ng-model="editarCliente.cnpj" type="text" class="form-control mb-2" name="editarCNPJ" id="editarCNPJ" placeholder="Insira CPF">
+                <script type="text/javascript">$('#editarCNPJ').mask("000.000.000-00");</script>
 
                 <label for="editarTelefone">Telefone</label>
                 <input ng-model="editarCliente.telefone" type="text" class="form-control mb-2" name="editarTelefone" id="editarTelefone" placeholder="Insira Telefone" pattern="\([0-9]{2}\)[\s][0-9]{4}-[0-9]{4}">
@@ -139,7 +135,6 @@
 
             </div>
         </form>
-        {{editarCliente}}
         </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

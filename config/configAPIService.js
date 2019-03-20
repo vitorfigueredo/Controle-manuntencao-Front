@@ -10,5 +10,6 @@ angular.module("start-angular").value("configBackEnd", {
     resourceMarcas: dominio_porta + nomeProjeto + rotaAPI + "marcas",
     resourceEnderecos: dominio_porta + nomeProjeto + rotaAPI + "enderecos",
     resourceEquipamentos: dominio_porta + nomeProjeto + rotaAPI + "equipamentos",
-    resourceEstadosServ: dominio_porta + nomeProjeto + rotaAPI + "estadoservs"
+    resourceEstadosServ: dominio_porta + nomeProjeto + rotaAPI + "estadoservs",
+    resourceOrdensServ: dominio_porta + nomeProjeto + rotaAPI + "ordens"
 });

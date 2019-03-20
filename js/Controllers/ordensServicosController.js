@@ -6,6 +6,7 @@ angular.module("start-angular").controller("ordensServicosController", function(
     $scope.equipamentosAll = [];
     dataAtual = new Date;
     console.log("Data de Hoje é: " + dataAtual);
+    $scope.ordemServicoDetalhada = [];
     
 
     //Função para carregar os Ordens do Banco de Dados
@@ -117,6 +118,11 @@ angular.module("start-angular").controller("ordensServicosController", function(
             return true;
         };
     };
+
+    $scope.passarOrdem = function(ordem){
+        $scope.ordemServicoDetalhada = ordem;
+        console.log($scope.ordemServicoDetalhada);
+    }
 
     carregarOrdens();
     trazerEquipamentosDoBanco();

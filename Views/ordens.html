@@ -19,7 +19,9 @@
                         <td>{{ordemServico.pedidoManutencao}}</td>
                         <td>{{ordemServico.estadoServ.nome}}</td>
                         <td class="icones">
-                            <a title="Interação de Ordem: {{ordemServico.idOrdem}}" href="" ng-click="botaoEditarLayout(ordemServico)" data-toggle="modal" data-target="#estoque-editar-Modal" class="bussola"><span class="iconify" data-icon="mdi:apple-safari" data-inline="false"></span></a>
+                            <a title="Interação de Ordem: {{ordemServico.idOrdem}}" href="#!/ordens/detalhes" [queryParams]="{ idOrdem: {{ordemServico.idOrdem}} }"  class="bussola">
+                                    <!-- data-toggle="modal" data-target="#estoque-editar-Modal" -->
+                                <span class="iconify" data-icon="mdi:apple-safari" data-inline="false"></span></a>
                         </td>
                     </tr>
                 </tbody>

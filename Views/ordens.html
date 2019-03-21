@@ -1,5 +1,23 @@
 <!-- Template contendo o sistema de estoque, para movimentações internas, saídas e entradas. -->
 <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Selecione o Filtro desejado: </td>
+                    <td>
+                            <select class="form-control mb-2" name="estadoServ" id="EstadoServico" ng-model="EstadosDisponiveis" ng-options="estadoServ.nome for estadoServ in estadosServicos">
+                                    <option selected disabled>Selecione Status</option>
+                            </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-12">
         <div class="table-responsive">
             <table class="table" ng-show="ordensServicos.length">
@@ -12,16 +30,15 @@
                     <th>Ações</th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="ordemServico in ordensServicos">
+                    <tr ng-repeat="ordemServico in ordensServicos | filter:EstadosDisponiveis.nome">
                         <td>{{ordemServico.idOrdem}}</td>
                         <td>{{ordemServico.cliente.nome}}</td>
                         <td>{{ordemServico.equipamento.nome}}</td>
                         <td>{{ordemServico.pedidoManutencao}}</td>
                         <td>{{ordemServico.estadoServ.nome}}</td>
                         <td class="icones">
-                            <a title="Interação de Ordem: {{ordemServico.idOrdem}}" href="#!/ordens/detalhes-da-ordem/{{ordemServico.idOrdem}}" class="bussola">
-                                    <!-- data-toggle="modal" data-target="#estoque-editar-Modal" -->
-                                <span class="iconify" data-icon="mdi:apple-safari" data-inline="false"></span></a>
+                            <a id="editarServicoOrdem{{ordemServico.idOrdem}}" title="Interação de Ordem: {{ordemServico.idOrdem}}" href="#!/ordens/detalhes-da-ordem/{{ordemServico.idOrdem}}" class="bussola" data-content="Editar detalhes do Serviço">
+                                    <span class="iconify" data-icon="fa-solid:edit" data-inline="false"></span></a>
                         </td>
                     </tr>
                 </tbody>
@@ -44,6 +61,9 @@
     })
 </script>
 
+
+
+
 <!-- Modal Cadastro de Estoques -->
 <div class="modal fade" id="ordem-cadastro-Modal" tabindex="-1" role="dialog" aria-labelledby="ordem-cadastro-ModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -61,11 +81,11 @@
 
                 <textarea ng-model="novaOrdemServico.pedidoManutencao" name="pedidoManutencao" id="PedidoManutencao" cols="80" rows="8" class="form-control mb-2" placeholder="Descreva os problemas do equipamento"></textarea>
                 
-                <select class="form-control mb-2" name="equipamento" id="Equipamento" ng-model="novaOrdemServico.equipamento" ng-options="equipamento.nome for equipamento in equipamentosAll" ng-required='RequiredProduto()'>
+                <select class="form-control mb-2" name="equipamento" id="Equipamento" ng-model="novaOrdemServico.equipamento" ng-options="equipamento.nome for equipamento in equipamentosAll" ng-required='RequiredEquipamento()'>
                     <option value="" selected disabled>Selecione um Equipamento</option>
                 </select>
 
-                <select class="form-control mb-2" name="cliente" id="Produto" ng-model="novaOrdemServico.cliente" ng-options="cliente.nome for cliente in clientes">
+                <select class="form-control mb-2" name="cliente" id="Cliente" ng-model="novaOrdemServico.cliente" ng-options="cliente.nome for cliente in clientes">
                     <option value="" selected disabled>Selecione um Cliente</option>
                 </select>
 

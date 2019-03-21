@@ -1,12 +1,13 @@
-angular.module("start-angular").controller("ordensServicosController", function($scope, ordensServAPI, equipamentosAPI, clientesAPI) {
+angular.module("start-angular").controller("ordensServicosController", function($scope, ordensServAPI, equipamentosAPI, clientesAPI, estadosServAPI) {
     $scope.ordensServicos = [];
     $scope.equipamentos = [];
     $scope.clientes = [];
-    $scope.layouts = [];
     $scope.equipamentosAll = [];
     dataAtual = new Date;
     console.log("Data de Hoje é: " + dataAtual);
     $scope.ordemServicoDetalhada = [];
+    $scope.EstadosDisponiveis = [];
+    $scope.estadosServicos =[];
     
 
     //Função para carregar os Ordens do Banco de Dados
@@ -110,8 +111,21 @@ angular.module("start-angular").controller("ordensServicosController", function(
         });
     };
 
+    //Função Para trazer os equipamentos do banco de dados
+    var trazerEstadososDoBanco = function() {
+        estadosServAPI.getEstadosServ()
+        .then(function(response) {
+            $scope.estadosServicos = response.data;
+            
+        })
+        .catch(function(response) {
+            var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
+            console.log(mensagem);
+        });
+    };
+
     //Teste de preenchimento
-    $scope.RequiredProduto = function(){
+    $scope.RequiredEquipamento = function(){
         if($scope.ordemServicoForm.$untouched || $scope.ordemServicoForm.$pristine){
             return false;
         }else{
@@ -127,5 +141,8 @@ angular.module("start-angular").controller("ordensServicosController", function(
     carregarOrdens();
     trazerEquipamentosDoBanco();
     trazerClientesDoBanco();
+    trazerEstadososDoBanco();
 
+
+    
 });

@@ -42,14 +42,7 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <!-- <select class="form-control mb-2" name="estadoServ" id="EstadoServico" ng-model="Ordem.estadoServ" ng-options="estadoServ.nome for estadoServ in estadosServ">
-                        <option value="" selected disabled>Selecione um Cliente</option>
-                </select> -->
-            </div>
-        </div>
+        
         <!-- Andamento do Serviço -->
         <div class="row espaco-cima">
             <div class="col-md-3"></div>
@@ -75,6 +68,15 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <label for="EstadoServico"><h5>Estado da Ordem</h5></label>
+                    <select class="form-control mb-2" name="estadoServ" id="EstadoServico" ng-model="Ordem.estadoServ" ng-options="estadoServ.nome for estadoServ in estadosServicos" ng-init="Ordem.estadoServ = array[0]">
+                            <option selected disabled>Selecione Status</option>
+                    </select>
+                </div>
+            </div>
 
         <!-- O que foi reparado no Equipamento -->
         <div class="row espaco-cima">

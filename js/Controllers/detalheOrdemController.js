@@ -2,8 +2,7 @@ angular.module("start-angular").controller("detalheOrdemController", function($s
 
     
     $scope.Ordem = [];
-    $scope.estadosServ = [];
-      
+    $scope.estadosServicos = [];
     
     //Função para carregar os Ordens do Banco de Dados
     var carregarOrdem = function() {
@@ -42,19 +41,17 @@ angular.module("start-angular").controller("detalheOrdemController", function($s
     };
 
     //Função Para trazer os equipamentos do banco de dados
-    var trazerEstatusDoBanco = function() {
+    var trazerEstadososDoBanco = function() {
         estadosServAPI.getEstadosServ()
         .then(function(response) {
-            $scope.estadosServ = response.data;
-            });
+            $scope.estadosServicos = response.data;
             
         })
         .catch(function(response) {
             var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = mensagem;
+            console.log(mensagem);
         });
     };
-
     //Função para trazer clientes
     var trazerClientesDoBanco = function() {
         clientesAPI.getClientes()
@@ -105,9 +102,23 @@ angular.module("start-angular").controller("detalheOrdemController", function($s
     };
 
 
+    //Function to update a single movimentacao at a time
+    $scope.updateEstoque = function(layout) {
+        var editLayout = angular.copy(layout);
+        equipamentosAPI.updateProdutos(editLayout)
+        .then(function(response) {
+            delete $scope.editarEstoque;
+            $scope.estoqueEditForm.$setPristine();
+            montarEstoque();
+        })
+        .catch(function(response) {
+            var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
+            $scope.mensagemDeErro = mensagem;
+        });
+    };
 
     //Teste de preenchimento
-    $scope.RequiredOrdem = function(){
+    $scope.RequiredProduto = function(){
         if($scope.ordemServicoForm.$untouched || $scope.ordemServicoForm.$pristine){
             return false;
         }else{
@@ -123,6 +134,6 @@ angular.module("start-angular").controller("detalheOrdemController", function($s
     carregarOrdem();
     trazerEquipamentosDoBanco();
     trazerClientesDoBanco();
-    trazerEstatusDoBanco();
+    trazerEstadososDoBanco();
 
 });

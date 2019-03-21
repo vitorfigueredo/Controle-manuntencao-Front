@@ -6,7 +6,6 @@ angular.module("start-angular").controller("detalheOrdemController", function($s
     
     //Função para carregar os Ordens do Banco de Dados
     var carregarOrdem = function() {
-        console.log("Id da Ordem: " + $routeParams.idOrdem)
         ordensServAPI.buscarOrdemPorId($routeParams.idOrdem)
         .then(function(response) {
             $scope.Ordem = response.data;
@@ -78,13 +77,11 @@ angular.module("start-angular").controller("detalheOrdemController", function($s
             $scope.editarMovimentacao = movimentacaoParaEditar;        
     };
     //Function to update a single ordem at a time
-    $scope.updateMovimentacao = function(movimentacao) {
-        var editMovimentacao = angular.copy(movimentacao);
-        ordensServAPI.updateOrdens(editMovimentacao)
+    $scope.atualizarOrdem = function(ordemSalvar) {
+        var ordemEditada = angular.copy(ordemSalvar);
+        ordensServAPI.updateOrdens(ordemEditada)
         .then(function(response) {
-            delete $scope.movimentacao;
-            $scope.movimentacaoEditForm.$setPristine();
-            carregarMovimentacoes();
+            console.log(response);
         })
         .catch(function(response) {
             var mensagem = "Deu erro: " + response.status + " - " + response.statusText;

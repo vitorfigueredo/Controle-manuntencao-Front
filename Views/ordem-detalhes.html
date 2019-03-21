@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container espaco-baixo">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -6,17 +6,63 @@
                             <h1 class="text-center">Ordem de Serviço número: {{Ordem.idOrdem}}</h1>
                     </div>
                 </div>
+
                 <div class="row" id="identificação-do-cliente">
-                    <div class="col-md-2">Nome do Cliente:</div>
-                        <div class="col-md-9">{{Ordem.cliente.nome}}</div>
-                    <div class="col-md-2">Equipamento a Reparar:</div>
-                        <div class="col-md-9">{{Ordem.equipamento.nome}}</div>
-                    <div class="col-md-2">Marca do Equipamento:</div>
-                        <div class="col-md-9">{{Ordem.equipamento.marca.nome}}</div>
-                    <div class="col-md-2">Status Atual do Serviço:</div>
-                        <div class="col-md-9">{{Ordem.estadoServ.nome}}</div>
-                    <div class="col-md-2">Data da Criação do Serviço</div>
-                        <div class="col-md-9">{{DatasdaOrdem.aberturaOrdem | date:'dd/MM/yyyy HH:mm:ss'}}</div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="table-responsive">
+                              <table class="table table-striped table-hover">
+                                  <tbody>
+                                    <tr>
+                                        <td class="text-right">Nome do Cliente:</td>
+                                        <td class="text-left">{{Ordem.cliente.nome}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">Equipamento a Reparar:</td>
+                                        <td class="text-left">{{Ordem.equipamento.nome}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">Marca do Equipamento:</td>
+                                        <td class="text-left">{{Ordem.equipamento.marca.nome}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">Status Atual do Serviço:</td>
+                                        <td class="text-left">{{Ordem.estadoServ.nome}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">Data da Criação do Serviço:</td>
+                                        <td class="text-left">{{DatasdaOrdem.aberturaOrdem | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                    </tr>
+                                  </tbody>
+                              </table>  
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row espaco-cima">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table table-hover detalhes-andamento">
+                        <tbody>
+                            <tr>
+                                <td>Escreva abaixo detalhes sobre o andamento do serviço</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <textarea ng-model="Ordem.aguardando" name="emEspera" id="AguardandoParaReparo" cols="45" rows="6"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><button type="button" class="btn btn-primary" ng-click="atualizarOrdem(Ordem)">
+                                        <span class="iconify" data-icon="fa:floppy-o" data-inline="false"></span> Salvar detalhes do Andamento
+                                    </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

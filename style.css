@@ -1,5 +1,8 @@
 /* Todos os Estilos iram aqui */
 
+/* Importação de Fonts: */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
+
 /* Tag Principais */
 main{margin-top: 20px; margin-bottom: 20px;}
 
@@ -98,3 +101,9 @@ main{margin-top: 20px; margin-bottom: 20px;}
 .meu-nome{font-size: 1.2em;}
 
 #identificação-do-cliente div{margin-top: 5px;}
+
+table tr td:first-child{font-family: 'Roboto Slab', serif; font-weight: thin;}
+table tr td:first-child + td{font-family: 'Roboto Slab', serif; font-weight: bolder;}
+.detalhes-andamento{text-align: center; font-weight: bolder; font-size: 1em;}
+.espaco-cima{margin-top: 20px;}
+.espaco-baixo{margin-bottom: 60px;}

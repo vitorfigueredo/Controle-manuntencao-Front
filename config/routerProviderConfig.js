@@ -1,12 +1,8 @@
 // Carrega os Ng-Views de acordo com as diretivas colocadas
 
-angular.module("start-angular").config(AppConfig, ['$locationProvider', function($locationProvider) {
-    $locationProvider.hashPrefix('');
-  }]);
+angular.module("start-angular").config(AppConfig);
 
 
-// $locationProvider.html5Mode(true);
-// $locationProvider.hashPrefix('');
 AppConfig.$inject = ['$routeProvider'];
 function AppConfig($routeProvider) {
     

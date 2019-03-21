@@ -1,7 +1,8 @@
-angular.module("start-angular").controller("detalheOrdemController", function($scope, ordensServAPI, equipamentosAPI, clientesAPI, $routeParams) {
+angular.module("start-angular").controller("detalheOrdemController", function($scope, ordensServAPI, equipamentosAPI, clientesAPI, estadosServAPI, $routeParams) {
 
     
     $scope.Ordem = [];
+    $scope.estadosServ = [];
       
     
     //Função para carregar os Ordens do Banco de Dados
@@ -31,6 +32,20 @@ angular.module("start-angular").controller("detalheOrdemController", function($s
                     $scope.equipamentos.push(element);
                 };
             $scope.equipamentosAll = response.data;
+            });
+            
+        })
+        .catch(function(response) {
+            var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
+            $scope.mensagemDeErro = mensagem;
+        });
+    };
+
+    //Função Para trazer os equipamentos do banco de dados
+    var trazerEstatusDoBanco = function() {
+        estadosServAPI.getEstadosServ()
+        .then(function(response) {
+            $scope.estadosServ = response.data;
             });
             
         })
@@ -90,23 +105,9 @@ angular.module("start-angular").controller("detalheOrdemController", function($s
     };
 
 
-    //Function to update a single movimentacao at a time
-    $scope.updateEstoque = function(layout) {
-        var editLayout = angular.copy(layout);
-        equipamentosAPI.updateProdutos(editLayout)
-        .then(function(response) {
-            delete $scope.editarEstoque;
-            $scope.estoqueEditForm.$setPristine();
-            montarEstoque();
-        })
-        .catch(function(response) {
-            var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = mensagem;
-        });
-    };
 
     //Teste de preenchimento
-    $scope.RequiredProduto = function(){
+    $scope.RequiredOrdem = function(){
         if($scope.ordemServicoForm.$untouched || $scope.ordemServicoForm.$pristine){
             return false;
         }else{
@@ -122,5 +123,6 @@ angular.module("start-angular").controller("detalheOrdemController", function($s
     carregarOrdem();
     trazerEquipamentosDoBanco();
     trazerClientesDoBanco();
+    trazerEstatusDoBanco();
 
 });

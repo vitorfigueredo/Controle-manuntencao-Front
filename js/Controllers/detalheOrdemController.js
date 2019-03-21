@@ -3,6 +3,7 @@ angular.module("start-angular").controller("detalheOrdemController", function($s
     
     $scope.Ordem = [];
     $scope.estadosServicos = [];
+    $scope.EstadosDisponiveis = [];
     
     //Função para carregar os Ordens do Banco de Dados
     var carregarOrdem = function() {
@@ -91,6 +92,27 @@ angular.module("start-angular").controller("detalheOrdemController", function($s
     //Function to update a single ordem at a time
     $scope.atualizarOrdem = function(ordemSalvar) {
         var ordemEditada = angular.copy(ordemSalvar);
+        ordensServAPI.updateOrdens(ordemEditada)
+        .then(function(response) {
+            console.log(response);
+        })
+        .catch(function(response) {
+            var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
+            console.log(mensagem);
+        });
+    };
+
+    //Function to update a single ordem at a time
+    $scope.SalvarStatus = function(ordemSalvar) {
+        $scope.Ordem.estadoServ = ordemSalvar;
+        if(ordemSalvar.idEstadoServ == 2){
+            $scope.Ordem.inicioServico = new Date;
+        }else if(ordemSalvar.idEstadoServ == 5){
+            $scope.Ordem.terminoServico = new Date;
+        }else if(ordemSalvar.idEstadoServ == 6 || ordemSalvar.idEstadoServ == 7){
+            $scope.Ordem.fechamentoOrdem = new Date;
+        }
+        var ordemEditada = angular.copy($scope.Ordem);
         ordensServAPI.updateOrdens(ordemEditada)
         .then(function(response) {
             console.log(response);

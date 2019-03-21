@@ -33,6 +33,18 @@
                                         <td class="text-right">Data da Criação do Serviço:</td>
                                         <td class="text-left">{{DatasdaOrdem.aberturaOrdem | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                                     </tr>
+                                    <tr ng-show="Ordem.inicioServico != null">
+                                        <td class="text-right">Data de Inicio de Serviço:</td>
+                                        <td class="text-left">{{Ordem.inicioServico | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                    </tr>
+                                    <tr ng-show="Ordem.terminoServico != null">
+                                        <td class="text-right">Data de termino de Serviço:</td>
+                                        <td class="text-left">{{Ordem.terminoServico | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                    </tr>
+                                    <tr ng-show="Ordem.fechamentoOrdem != null">
+                                        <td class="text-right">Data Devolução do Equipamento:</td>
+                                        <td class="text-left">{{Ordem.fechamentoOrdem | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                    </tr>
                                   </tbody>
                               </table>  
                         </div>
@@ -69,14 +81,22 @@
             </div>
         </div>
         <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <label for="EstadoServico"><h5>Estado da Ordem</h5></label>
-                    <select class="form-control mb-2" name="estadoServ" id="EstadoServico" ng-model="Ordem.estadoServ" ng-options="estadoServ.nome for estadoServ in estadosServicos" ng-init="Ordem.estadoServ = array[0]">
-                            <option selected disabled>Selecione Status</option>
-                    </select>
-                </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <label for="EstadoServico"><h5>Estado da Ordem</h5></label>
+                <select class="form-control mb-2" name="estadoServ" id="EstadoServico" ng-model="EstadosDisponiveis" ng-options="estadoServ.nome for estadoServ in estadosServicos" ng-init="Ordem.estadoServ.nome">
+                        <option selected disabled>Selecione Status</option>
+                </select>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 text-center">
+                <button type="button" class="btn btn-primary" ng-click="SalvarStatus(EstadosDisponiveis)">
+                    <span class="iconify" data-icon="fa:floppy-o" data-inline="false"></span> Alterar Status
+                </button>
+            </div>
+        </div>
 
         <!-- O que foi reparado no Equipamento -->
         <div class="row espaco-cima">
